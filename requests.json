@@ -1,0 +1,36 @@
+{
+    "test_name": "Tyr_FCT",
+    "case_QTY": 5,
+    "test_cases":
+    [
+        {
+                "case_name":"Kernel_VER_CHECK",
+                "case_cli":"uname -a",
+                "concurrent": true
+        },
+
+        {
+                "case_name":"NETWORK_CHECK",
+                "case_cli":"ifconfig -a",
+                "concurrent": true
+        },
+
+        {
+                "case_name":"CPU_CHECK",
+                "case_cli":"cat /proc/cpuinfo",
+                "concurrent": true
+        },
+
+        {
+                "case_name":"RTC_CHECK",
+                "case_cli":"hwclock -r",
+                "concurrent": true
+        },
+
+        {
+                "case_name":"HOSTNAME_CHECK",
+                "case_cli":"hostname",
+                "concurrent": false
+        }
+    ]
+}

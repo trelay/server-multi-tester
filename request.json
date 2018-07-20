@@ -1,0 +1,13 @@
+{
+    "test_name": "Tyr_FCT",
+    "case_QTY": 5,
+    "test_cases":
+    [
+
+        {
+                "case_name":"HOSTNAME_CHECK",
+                "case_cli":"hostname",
+                "concurrent": false
+        }
+    ]
+}
