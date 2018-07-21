@@ -19,6 +19,11 @@ class CommandLineError(Error):
         Error.__init__(self,"CMD-Empty-Error", mesg)
         self.data= data
 
+class FormatError(Error):
+    def __init__(self, mesg, data=None):
+        Error.__init__(self,"JSON-Format-Error", mesg)
+        self.data= data
+
 class HandlerError(Error):
     def __init__(self, mesg, data=None):
         Error.__init__(self,"Command-Error", mesg)

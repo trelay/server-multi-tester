@@ -2,6 +2,9 @@ import traceback
 from errors import *
 from subprocess import Popen, PIPE
 import shlex
+import Queue
+
+Result = Queue.Queue()
 
 def handler(cmd):
     if cmd==None:
@@ -13,11 +16,9 @@ def handler(cmd):
     
 
 class Cmd(object):
-    #def __init__(self,case_name=None, case_cli=None, concurrent=None):
-    def __init__(self,case_name, case_cli, concurrent):
+    def __init__(self,case_name, case_cli):
         self.case_name = case_name
         self.cmd = case_cli
-        self.concurrent= concurrent
         self.status = Status()
         self.data = None
     def run(self):
@@ -26,4 +27,10 @@ class Cmd(object):
         except Exception, err:
             error = CommandLineError(mesg=str(err))
             self.status.append_error(error)
-        return {"response": self.data, "status": self.status.dict()}
+        results = {"case_name": self.case_name,"case_cli":self.cmd,\
+                "response": self.data, "status": self.status.dict()}
+        print results
+        Result.put(results)
+
+def request_exec(case_name, case_cli):
+    Cmd(case_name, case_cli).run()
