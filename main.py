@@ -6,7 +6,6 @@ from errors import *
 import Queue
 
 Result = Queue.Queue()
-print Result
 def executer(requests):
     io_thread=[]
     executers= []
@@ -25,16 +24,19 @@ def executer(requests):
 
 def main():
     data=[]
+    requests={}
     status = Status()
     try:
-        with open("request.json","r") as f:
+        with open("request1.json","r") as f:
             requests_str = f.read()
-    except:
-        raise FormatError("The json format is not right")
+    except Exception, err:
+        error = FileNotFountError(mesg=str(err))
+        status.append_error(error)
     try:
         requests = json.loads(requests_str)
     except Exception, err:
-        raise err("Format is not right")
+        error = FormatError(mesg=str(err))
+        status.append_error(error)
     try:
         executer(requests['test_cases'])
     except Exception, err:
@@ -44,10 +46,6 @@ def main():
     requests["test_cases"]= data
     requests["status"]=status.dict()
     print requests
-    '''
-    executer(requests['test_cases'])
-    print Result.get()
-    '''
 
 if __name__=="__main__":
     main()

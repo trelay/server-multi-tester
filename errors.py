@@ -19,6 +19,11 @@ class CommandLineError(Error):
         Error.__init__(self,"CMD-Empty-Error", mesg)
         self.data= data
 
+class FileNotFountError(Error):
+    def __init__(self, mesg, data=None):
+        Error.__init__(self,"File not found Error", mesg)
+        self.data= data
+
 class FormatError(Error):
     def __init__(self, mesg, data=None):
         Error.__init__(self,"JSON-Format-Error", mesg)
@@ -38,7 +43,6 @@ class Status(object):
         if isinstance(err, Error):
             self.errors.append(err)
             self.result = "fail"
-            print self.errors
 
     def set_success(self):
         self.result = "success"
