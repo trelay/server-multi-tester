@@ -1,38 +1,16 @@
 #TODO fix this later
 
-class Error(Exception):
-    def __init__(self, error_type=None, mesg=None):
-        self.error_type = error_type
-        self.mesg = mesg
-        self.trace = None
+class CommandLineError(Exception):
+    pass
 
-    def __str__(self):
-        return "%s: %s" % (self.error_type, self.mesg)
+class FileNotFountError(Exception):
+    pass
 
-    def dict(self):
-        dictinfo = {"error-type": self.error_type,
-                    "message": self.mesg}
-        return dictinfo
+class FormatError(Exception):
+    pass
 
-class CommandLineError(Error):
-    def __init__(self, mesg, data=None):
-        Error.__init__(self,"CMD-Empty-Error", mesg)
-        self.data= data
-
-class FileNotFountError(Error):
-    def __init__(self, mesg, data=None):
-        Error.__init__(self,"File not found Error", mesg)
-        self.data= data
-
-class FormatError(Error):
-    def __init__(self, mesg, data=None):
-        Error.__init__(self,"JSON-Format-Error", mesg)
-        self.data= data
-
-class HandlerError(Error):
-    def __init__(self, mesg, data=None):
-        Error.__init__(self,"Command-Error", mesg)
-        self.data= data
+class HandlerError(Exception):
+    pass
 
 class Status(object):
     def __init__(self, cmd=None):

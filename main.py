@@ -22,14 +22,19 @@ def executer(requests):
         thread.start()
         thread.join()
 
+def format_check(requests):
+    if requests["case_QTY"]!=len(requests["test_cases"]):
+        raise FormatError("case_QTY!=len(test_cases)")
+
 def main():
     data=[]
     requests={}
     status = Status()
     try:
-        with open("request1.json","r") as f:
+        with open("request.json","r") as f:
             requests_str = f.read()
         requests = json.loads(requests_str)
+        format_check(requests)
         executer(requests['test_cases'])
     except Exception, err:
         status.append_error(err)

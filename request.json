@@ -1,6 +1,6 @@
 {
     "test_name": "Tyr_FCT",
-    "case_QTY": 5,
+    "case_QTY": 2,
     "test_cases":
     [
 
@@ -8,7 +8,7 @@
                 "case_name":"HOSTNAME_CHECK",
                 "case_cli":"hostname",
                 "concurrent": true
-        }
+        },
         {
                 "case_name":"kener_CHECK",
                 "case_cli":"uname",
