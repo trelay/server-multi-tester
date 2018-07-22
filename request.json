@@ -7,7 +7,12 @@
         {
                 "case_name":"HOSTNAME_CHECK",
                 "case_cli":"hostname",
-                "concurrent": false
+                "concurrent": true
+        },
+        {
+                "case_name":"kener_CHECK",
+                "case_cli":"uname",
+                "concurrent": true
         }
     ]
 }

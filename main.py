@@ -1,26 +1,30 @@
 #!/usr/bin/env python
-from handler import request_exec,Result
+from handler import request_exec
 import json
 import threading
 from errors import *
+import Queue
 
+Result = Queue.Queue()
+print Result
 def executer(requests):
     io_thread=[]
     executers= []
     for request in requests:
         if request["concurrent"] == True:
             thread=threading.Thread(target=request_exec,\
-                   args =(request["case_name"],request["case_cli"]))
+                   args =(Result,request["case_name"],request["case_cli"]))
             io_thread.append(thread)
         else:
             executers.append(request)
     for request in executers:
-        request_exec(request["case_name"],request["case_cli"])
+        request_exec(Result,request["case_name"],request["case_cli"])
     for thread in io_thread:
         thread.start()
         thread.join()
 
 def main():
+    data=[]
     status = Status()
     try:
         with open("request.json","r") as f:
@@ -31,17 +35,19 @@ def main():
         requests = json.loads(requests_str)
     except Exception, err:
         raise err("Format is not right")
-    '''
     try:
-        data = test_cases.append(executer(requests['test_cases']))
+        executer(requests['test_cases'])
     except Exception, err:
         status.append_error(err)
-    requests["test_cases"]= Result.get()
+    while not Result.empty():
+        data.append(Result.get())
+    requests["test_cases"]= data
     requests["status"]=status.dict()
     print requests
     '''
-    Result.get()
     executer(requests['test_cases'])
+    print Result.get()
+    '''
 
 if __name__=="__main__":
     main()

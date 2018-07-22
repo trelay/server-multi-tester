@@ -30,7 +30,7 @@
         {
                 "case_name":"HOSTNAME_CHECK",
                 "case_cli":"hostname",
-                "concurrent": false
+                "concurrent": true
         }
     ]
 }
