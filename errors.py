@@ -40,7 +40,7 @@ class Status(object):
         self.errors = []
 
     def append_error(self, err):
-        if isinstance(err, Error):
+        if isinstance(err, Exception):
             self.errors.append(err)
             self.result = "fail"
 
@@ -65,5 +65,5 @@ class Status(object):
 
     def dict(self):
         dictinfo = {"result": self.result,
-                    "errors": [error.dict() for error in self.errors]}
+                    "errors": [error for error in self.errors]}
         return dictinfo

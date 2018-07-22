@@ -29,15 +29,7 @@ def main():
     try:
         with open("request1.json","r") as f:
             requests_str = f.read()
-    except Exception, err:
-        error = FileNotFountError(mesg=str(err))
-        status.append_error(error)
-    try:
         requests = json.loads(requests_str)
-    except Exception, err:
-        error = FormatError(mesg=str(err))
-        status.append_error(error)
-    try:
         executer(requests['test_cases'])
     except Exception, err:
         status.append_error(err)
