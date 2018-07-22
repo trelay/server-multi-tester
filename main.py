@@ -25,6 +25,8 @@ def executer(requests):
 def format_check(requests):
     if requests["case_QTY"]!=len(requests["test_cases"]):
         raise FormatError("case_QTY!=len(test_cases)")
+    if "FCT" not in requests["test_name"]:
+        raise FormatError("Wrong defination of test_name")
 
 def main():
     data=[]
