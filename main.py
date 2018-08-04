@@ -4,6 +4,8 @@ import json
 import threading
 from errors import *
 import Queue
+from pymongo import MongoClient
+data_ip = '192.168.0.101'
 
 Result = Queue.Queue()
 def executer(requests):
@@ -28,6 +30,13 @@ def format_check(requests):
     if "FCT" not in requests["test_name"]:
         raise FormatError("Wrong defination of test_name")
 
+def insert2database(requests):
+    conn = MongoClient()
+    db=conn.logdb
+    multi_set = db.test_set
+    multi_set.insert_one(requests)
+    conn.close()
+
 def main():
     data=[]
     requests={}
@@ -45,6 +54,7 @@ def main():
     requests["test_cases"]= data
     requests["status"]=status.dict()
     print requests
+    insert2database(requests)
 
 if __name__=="__main__":
     main()
